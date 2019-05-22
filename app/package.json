@@ -1,0 +1,20 @@
+{
+  "name": "security-gotchas",
+  "version": "1.0.0",
+  "description": "Some semi-common code that can open you up to vulnerabilities",
+  "main": "index.js",
+  "scripts": {
+    "start": "./node_modules/forever/bin/forever index.js",
+    "dev": "./node_modules/nodemon/bin/nodemon.js index.js -e js,html,css",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mustache": "^3.0.1",
+    "mustache-express": "^1.2.8",
+    "nodemon": "^1.19.0",
+    "sqlite3": "^4.0.8"
+  }
+}
