@@ -1,7 +1,7 @@
 :root {
   --bg-color: #222;
   --main-accent-color: #de4fff;
-
+  --puzzle-bg-color: #353535;
   --main-font: "Arial", sans-serif;
 }
 
@@ -78,4 +78,21 @@ a {
 .wrapper {
   margin: 0 auto;
   width: 900px;
+}
+
+.puzzle-info {
+  background-color: var(--puzzle-bg-color);
+  border: 1px solid #777;
+  border-radius: 6px;
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.75);
+  margin-bottom: 40px;
+  padding: 20px;
+}
+
+.file-path {
+  color: #fcfba9;
+}
+
+.form-container {
+  margin-bottom: 24px;
 }

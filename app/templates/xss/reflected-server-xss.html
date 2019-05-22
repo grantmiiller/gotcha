@@ -1,9 +1,22 @@
 {{> partials/head-and-fam }}
 
+<aside class="puzzle-info">
+  <p>
+    What a nice, innocent, and worthless search page. This looks like a request is made to the server and a new HTML document is returned.
+  </p>
+  <p>
+    I wonder if we can get JavaScript alert box to pop up?
+  </p>
+  <p>
+    The susceptible route is located in <span class="file-path">app/client/routes/xss-routes</span>.
+  </p>
+</aside>
+
 <!-- Content Goes Here -->
-<div class="search-input-container">
+<div class="form-container">
+  <h2>Super Amazing Search Page (That Refreshes the Page on Search)</h2>
   <form method="GET" action="">
-    <input name="searchterm" type="text" class="search-container" />
+    <input name="searchterm" type="text" class="search-container" placeholder="Search Term"/>
     <input type="submit" value="FIND IT!"/>
   </form>
 </div>
