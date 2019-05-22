@@ -16,3 +16,5 @@ function escapeHtml (string) {
     return entityMap[s];
   });
 }
+
+module.exports = escapeHtml;
