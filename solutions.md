@@ -3,6 +3,7 @@ Solutions on how to solve the various pages
 
 # XSS (Cross-site Scripting)
 - [Reflected XSS from Server](#reflected-server)
+- [DOM XSS](#dom-xss)
 - [Reflected XSS from Client](#reflected-client)
 
 ---
@@ -51,6 +52,15 @@ clientApp.get('/xss/reflected-server', function(req, res) {
   res.render('xss/reflected-server-xss.html', { title: 'Introduction', query: query })
 });
 ```
+
+<a name="reflected-server"></a>
+## [/xss/reflected-server](http://localhost:4000/xss/reflected-server)
+
+### How to execute
+Just drop a `<scri<script>pt>alert(1)</script>` in either field
+
+### How to fix
+Really, the best way to fix this is to use a library such as DOMPurify to sanitize the input. Or entity-encode the characters mentioned above and not allow users to render HTML tags. Or just reject comments that have any suspected evil characters.
 
 <a name="reflected-client"></a>
 ## [/xss/reflected-client](http://localhost:4000/xss/reflected-client)

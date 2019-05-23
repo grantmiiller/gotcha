@@ -1,0 +1,32 @@
+{{> partials/head-and-fam }}
+
+<aside class="puzzle-info">
+  <p>
+    A simple greeting page. I wonder if we can make it do anything else?
+  </p>
+  <p>
+    The vulnerable code is located in <span class="file-path">app/assets/js/reflected-client-xss.js</span>.
+  </p>
+</aside>
+
+<!-- Content Goes Here -->
+<div class="form-container">
+  <h2>Leave Us a Comment!</h2>
+  <form method="POST" action="" id="commentForm">
+    <input id="nameInput" name="name" type="text" class="name-input" placeholder="Your name" />
+    <textarea id="commentInput" name="comment" class="comment-input" placeholder="Your comment"></textarea>>
+    <input type="submit" value="Tell Us What You Think"/>
+  </form>
+</div>
+<div id="comments" class="comments">
+{{#comments}}
+  <div class="comment">
+    <h3>{{{name}}}</h3>
+    <p>{{{comment}}}</p>
+  </div>
+{{/comments}}
+</div>
+
+{{> partials/footer }}
+
+{{> partials/closing-html }}
