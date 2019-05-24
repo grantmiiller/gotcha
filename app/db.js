@@ -2,7 +2,12 @@ const sqlite3 = require('sqlite3').verbose();
 const fs = require('fs');
 
 const db_path = 'db.sqlite3';
-fs.unlinkSync(db_path);
+
+try {
+  fs.unlinkSync(db_path);
+} catch (e) {
+  // Ignore Error
+}
 
 const db = new sqlite3.Database(db_path);
 
@@ -27,7 +32,6 @@ function getComments(cb) {
       if (err) { 
         throw err;
       }
-      console.log(rows);
       cb(rows);
     })
   });

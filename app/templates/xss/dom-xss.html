@@ -2,10 +2,10 @@
 
 <aside class="puzzle-info">
   <p>
-    A simple greeting page. I wonder if we can make it do anything else?
+    Now we are completely secure from XSS since we remove all script and img tags from comments. There can't be any other way!
   </p>
   <p>
-    The vulnerable code is located in <span class="file-path">app/assets/js/reflected-client-xss.js</span>.
+    The function sanitizing the comments is <span class="highlight">sanitizeComments</span> located at <span class="highlight">app/helpers/comments.js</span>
   </p>
 </aside>
 

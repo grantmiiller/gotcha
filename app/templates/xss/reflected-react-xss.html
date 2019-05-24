@@ -1,0 +1,31 @@
+{{> partials/head-and-fam }}
+
+<aside class="puzzle-info">
+  <p>
+    A beautiful page to share links with your friends. And it's written in React, which is of course completely invincible to XSS
+  </p>
+  <p>
+    But if you do find a vulnerabilty, you can fix it in the <span class="highlight">renderLink</span> function in <span class="highlight">app/assets/js/reflected-client-xss.js</span>.
+  </p>
+</aside>
+
+<!-- Content Goes Here -->
+<div class="form-container">
+  <h2>The Link Sharer 2000</h2>
+  <p>Want to share a link, but inside of a pretty site? Look no more!</p>
+  <form method="GET" action="" id="sharerForm">
+    <input id="sharerInput" name="url" type="text" class="search-container" placeholder="URL To Share" />
+    <input type="submit" value="Say Hi!"/>
+  </form>
+</div>
+
+<div id="app">
+
+</div>
+
+{{> partials/footer }}
+<script type="text/javascript" src="/assets/js/react.production.min.js"></script>
+<script type="text/javascript" src="/assets/js/react-dom.production.min.js"></script>
+<script type="text/javascript" src="/assets/js/reflected-react-xss.js"></script>
+
+{{> partials/closing-html }}

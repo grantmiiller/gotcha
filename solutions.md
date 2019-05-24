@@ -3,8 +3,9 @@ Solutions on how to solve the various pages
 
 # XSS (Cross-site Scripting)
 - [Reflected XSS from Server](#reflected-server)
-- [DOM XSS](#dom-xss)
+- [DOM Based XSS](#dom-xss)
 - [Reflected XSS from Client](#reflected-client)
+- [React Reflected XSS](#reflected-react)
 
 ---
 <a name="reflected-server"></a>
@@ -53,14 +54,32 @@ clientApp.get('/xss/reflected-server', function(req, res) {
 });
 ```
 
-<a name="reflected-server"></a>
-## [/xss/reflected-server](http://localhost:4000/xss/reflected-server)
+<a name="dom-xss"></a>
+## [/xss/dom](http://localhost:4000/xss/dom)
 
 ### How to execute
 Just drop a `<scri<script>pt>alert(1)</script>` in either field
 
 ### How to fix
-Really, the best way to fix this is to use a library such as DOMPurify to sanitize the input. Or entity-encode the characters mentioned above and not allow users to render HTML tags. Or just reject comments that have any suspected evil characters.
+Really, the best way to fix this is to use a tested dom sanitizing library such as `DOMPurify` to sanitize the input. Or entity-encode the characters mentioned above and not allow users to render HTML tags.
+
+To use DOMPurify, do the following in `app/helpers/comments.js`
+```
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+
+const window = (new JSDOM('')).window;
+const DOMPurify = createDOMPurify(window);
+
+function sanitizeComments(comments) {
+    return comments.map(function(row) {
+        return {
+            name: DOMPurify.sanitize(row.name),
+            comment: DOMPurify.sanitize(row.comment),
+        };
+    });
+}
+```
 
 <a name="reflected-client"></a>
 ## [/xss/reflected-client](http://localhost:4000/xss/reflected-client)
@@ -75,5 +94,22 @@ Because we are updating the text using `innerHTML`, HTML can be injected. This c
 ```
 function updateGreeting(friend) {
     greetingDOM.textContent = `Hi ${friend}!`;
+}
+```
+
+
+<a name="reflected-react"></a>
+## [/xss/reflected-react](http://localhost:4000/xss/reflected-react)
+
+### How to execute
+Enter `javascript:alert(1)` into the input field and submit. Then click on the link.
+
+### How to fix
+Just checking for `javascript:` at the beginning of the passed string isn't enough, since there are ways to pass that filter such as `jaVAScript:` or adding a bunch of spaces before `javascript:`.
+
+The best way to make sure your link is safe is to check for `https:` at the beginning of the string and drop anything else.
+```
+if (!url.match(/^https?:/i)) {
+    url = '';   
 }
 ```

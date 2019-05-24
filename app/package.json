@@ -13,9 +13,12 @@
   "dependencies": {
     "dompurify": "^1.0.10",
     "express": "^4.16.4",
+    "jsdom": "^15.1.0",
     "mustache": "^3.0.1",
     "mustache-express": "^1.2.8",
     "nodemon": "^1.19.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "sqlite3": "^4.0.8"
   }
 }
