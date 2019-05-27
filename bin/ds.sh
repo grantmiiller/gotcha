@@ -1,2 +1,2 @@
 #!/bin/bash
-docker exec -it gotchas bash
+docker exec -it gotcha bash
