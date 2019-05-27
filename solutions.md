@@ -37,7 +37,7 @@ You can make the input safe in this HTML context by entity-encoding the followin
  / --> &#x2F;  
  ```
 
-For example, rewrite the route in `app/client/routes/xss-routes` with the following to prevent the XSS attack.
+For example, rewrite the route in `client/routes/xss-routes` with the following to prevent the XSS attack.
 
 ```
 clientApp.get('/xss/reflected-server', function(req, res) {
@@ -74,7 +74,7 @@ Just drop a `<scri<script>pt>alert(1)</script>` in either field
 ### How to fix
 Really, the best way to fix this is to use a tested dom sanitizing library such as `DOMPurify` to sanitize the input. Or entity-encode the characters mentioned above and not allow users to render HTML tags.
 
-To use DOMPurify, do the following in `app/helpers/comments.js`
+To use DOMPurify, do the following in `helpers/comments.js`
 ```
 const createDOMPurify = require('dompurify');
 const { JSDOM } = require('jsdom');
@@ -100,7 +100,7 @@ Luckily, `innerHTML` isn't supposed to execute script tags. But we can still exe
 
 ### How to fix
 
-Because we are updating the text using `innerHTML`, HTML can be injected. This can be fixed by updating the `updateGreeting` in `/app/assets/js/reflected-client-xss.js` to be the following:
+Because we are updating the text using `innerHTML`, HTML can be injected. This can be fixed by updating the `updateGreeting` in `/assets/js/reflected-client-xss.js` to be the following:
 
 ```
 function updateGreeting(friend) {
