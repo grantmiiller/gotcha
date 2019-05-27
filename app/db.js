@@ -16,6 +16,15 @@ db.serialize(function() {
 
   createComment("Grant", "Hi everybody!");
   createComment("Baxter", "What an amazing and wonderful site!");
+
+  db.run("CREATE TABLE IF NOT EXISTS users (id INTEGER PRIMARY KEY, username TEXT, password TEXT)");
+
+  const userStmt = db.prepare("INSERT INTO users(username, password) VALUES(?, ?)");
+
+  userStmt.run("admin", "supersecretReallyUnbreakableAdmin");
+  userStmt.run("user", "password123");
+
+  userStmt.finalize();
 });
 
 function createComment(name, comment, cb) {

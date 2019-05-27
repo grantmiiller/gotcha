@@ -1,0 +1,34 @@
+{{> partials/head-and-fam }}
+
+<aside class="puzzle-info">
+  <p>
+    This site allows you fetch urls from all over the net. But you remember seeing a presentation where this company has a local only service running on port 3000.
+  </p>
+  <p>
+    The susceptible route is located in <span class="highlight">app/client/routes/ssrf-routes</span>.
+  </p>
+</aside>
+
+<!-- Content Goes Here -->
+<div class="form-container">
+  <h2>The DOM Fetcher!</h2>
+  <form method="GET" action="">
+    <input name="url" type="text" placeholder="URL"/>
+    <input type="submit" value="GET IT!"/>
+  </form>
+</div>
+{{#err}}
+  {{err}}
+{{/err}}
+
+{{#body}}
+<div class="search-results">
+  {{body}}
+</div>
+{{/body}}
+
+{{> partials/footer }}
+
+<!-- Scripts Go Here -->
+
+{{> partials/closing-html }}

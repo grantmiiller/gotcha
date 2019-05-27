@@ -1,0 +1,30 @@
+{{> partials/head-and-fam }}
+
+<aside class="puzzle-info">
+  <p>
+    Here we can look up comments by id. But are they making sure that an id is all they allow?
+  </p>
+  <p>
+    If you do find a way, you can fix it in <span class="highlight">app/client/routes/injection-routes.js</span>.
+  </p>
+</aside>
+
+{{#id}}
+    {{#comment}}
+        <h2>{{comment.comment}}</h2>
+        <p>By: {{comment.name}}</p>
+    {{/comment}}
+    {{^comment}}
+        <p>Could not find that comment</p>  
+    {{/comment}}
+{{/id}}
+{{#comments}}
+  <div class="comment">
+    <a href="/injection/get/{{id}}">To Comment #{{id}}</a>
+  </div>
+{{/comments}}
+
+{{> partials/footer }}
+
+{{> partials/closing-html }}
+

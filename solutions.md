@@ -1,13 +1,24 @@
 ### ***** SPOILERS *****
 Solutions on how to solve the various pages
 
-# XSS (Cross-site Scripting)
+## XSS (Cross-site Scripting)
 - [Reflected XSS from Server](#reflected-server)
 - [DOM Based XSS](#dom-xss)
 - [Reflected XSS from Client](#reflected-client)
 - [React Reflected XSS](#reflected-react)
 
+
+## SQL Injection
+- [Login Injection](#login-injection)
+- [Get Injection](#get-injection)
+
+
+## SSRF(Server-side Request Forgery) 
+- [Internal Network SSRF](#internal-network)
 ---
+
+# XSS
+
 <a name="reflected-server"></a>
 ## [/xss/reflected-server](http://localhost:4000/xss/reflected-server)
 
@@ -113,3 +124,73 @@ if (!url.match(/^https?:/i)) {
     url = '';   
 }
 ```
+
+# Injection
+
+<a name="login-injection"></a>
+## [/injection/login](http://localhost:4000/injection/login)
+
+### How to execute
+Enter `" or 1=1 --` into the `Username` field and submit.
+This works because the SQL statement looks like this `SELECT username FROM users WHERE username = "' + username + '" AND password = "' + password + '"'` so when we enter `" or 1=1 --` the statement ends up looking like this: `SELECT username FROM users WHERE username = "" or 1=1 --" AND password = ""` which really translates to `SELECT username FROM users WHERE username = "" or 1=1 --`.
+
+### How to fix
+One, we shouldn't be storing unhashed passwords. But we can fix this situation by using a prepared statement instead. This can be done by turning the route into:
+
+```
+clientApp.post('/injection/login', function(req, res) {
+  const { username, password} = req.body;
+  const sqlQuery = db.prepare("SELECT username FROM users WHERE username = ? and password = ?");
+
+  sqlQuery.get([username, password], function(err, row) {
+      res.render('injection/login-injection.html', {
+          title: 'Login Injection',
+          username: row ? row.username : null,
+      });
+  })
+});
+```
+
+<a name="get-injection"></a>
+## [/injection/get](http://localhost:4000/injection/get)
+
+### How to execute
+Append ` AND (SELECT 1 FROM users WHERE LIKE("a%25", username)%3d1)%3d1` to the end of a working url, for instance `http://localhost:4000/injection/get/2%20AND%20(SELECT%201%20FROM%20users%20WHERE%20LIKE(%22a%25%22,%20username)%3d1)%3d1`.
+
+This works because we are running a true statement, so the site still returns the comment. If we run a false statement, such as `http://localhost:4000/injection/get/2%20AND%201=2` the comment won't be found.
+
+### How to Fix
+This can also be fixed using a prepared statement like above. However, if for whatever reason you would need to make a dynamic query, the best thign to do is only use whitelisted values and not the user provided ones, or make sure the input is exactly what you expect it to be.
+
+For instance, we can prevent this SQL injection by converting the input to an integer.
+
+```
+clientApp.get('/injection/get/:id', function(req, res) {
+    const id = parseInt(req.params.id, 10);
+    const sqlQuery = 'SELECT * FROM comments WHERE id = ' + id;
+
+    if(isNaN(id)) {
+        res.redirect('/injection/get');
+    } else {
+        db.get(sqlQuery, function(err, row) {
+            res.render('injection/get-injection.html', {
+                title: 'Login Injection',
+                comment: row,
+                id: id,
+            });
+        });
+    }
+});
+```
+
+# SSRF
+
+<a name="internal-network"></a>
+## [/ssrf/internal-network](http://localhost:4000/injection/get)
+
+### How to execute
+You access the super secret endpoint by entering `http://localhost:3000` in the input field and submitting
+
+### How to fix
+
+SSRF is difficult to prevent. The best way to do it is not to make requests using user input. However, if you must, the next best thing is to only allow requests to a whitelisted number of domains. You should also validate the path of url is something you expect and limit the number of requests a user can make since a user could use your servers to attack someone else's.
