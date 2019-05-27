@@ -4,7 +4,7 @@
   "description": "Some semi-common code that can open you up to vulnerabilities",
   "main": "index.js",
   "scripts": {
-    "start": "npm install && ./node_modules/nodemon/bin/nodemon.js ./app_files/index.js -e js,html,css",
+    "start": "./node_modules/nodemon/bin/nodemon.js ./app_files/index.js -e js,html,css",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
