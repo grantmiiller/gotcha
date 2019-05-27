@@ -1,2 +1,2 @@
 #!/bin/bash
-docker build -t gotcha .
+docker build -t grantmiiller/gotcha .
