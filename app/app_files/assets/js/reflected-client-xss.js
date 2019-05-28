@@ -15,10 +15,4 @@
         updateGreeting(name);
     }
 
-    greetingForm.addEventListener('submit', function handleFormSubmit(e) {
-        e.preventDefault();
-        if (greetingInput.value) {
-            updateGreeting(greetingInput.value);
-        }
-    });
 })();
