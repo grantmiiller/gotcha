@@ -12,9 +12,6 @@
 
     // Sanitize passed url
     function renderLink(url) {
-        if (url.match(/^javascript:/)) {
-            url = '';   
-        }
         ReactDOM.render(LinkSharer({ url }), document.getElementById('app'));
     }
 })();
