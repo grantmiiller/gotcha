@@ -4,7 +4,7 @@ const { sanitizeComments } = require('../../helpers/comments');
 function renderComments(req, res) {
     db.getComments(function(comments) {
         const sanitizedComments = sanitizeComments(comments);
-        res.render('xss/xss-3.html', { title: 'DOM XSS', comments: sanitizedComments });
+        res.render('xss/xss-3.html', { title: 'XSS 3', comments: sanitizedComments });
     });
 }
 
@@ -29,7 +29,7 @@ function connectXssRoutes(clientApp) {
     });
 
     clientApp.get('/xss/xss-4', function(req, res) {
-        res.render('xss/xss-4.html', { title: 'Client Reflected XSS' });
+        res.render('xss/xss-4.html', { title: 'XSS 4' });
     });
 }
 
