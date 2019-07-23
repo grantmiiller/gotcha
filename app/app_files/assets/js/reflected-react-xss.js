@@ -5,7 +5,8 @@
     const url = searchParams.get('url') || '';
 
     function LinkSharer(props) {
-        return e('a', { href: props.url }, "Your Friends Link!");
+        const url = props.url;
+        return e('a', { href: url }, "Your Friends Link!");
     }
 
     renderLink(url);
