@@ -162,7 +162,19 @@ The statement decoded is `http://localhost:4000/injection/get/2 AND (SELECT 1 FR
 This works because we are running a true statement, so the site still returns the comment. If we run a false statement, such as `http://localhost:4000/injection/get/2%20AND%201=2` the comment won't be found.
 
 ### How to Fix
-This can also be fixed using a prepared statement like above. However, if for whatever reason you would need to make a dynamic query, the best thign to do is only use whitelisted values and not the user provided ones, or make sure the input is exactly what you expect it to be.
+This can also be fixed using a prepared statement like above by using:
+```
+  const sqlQuery = db.prepare('SELECT * FROM comments WHERE id = ?');
+  sqlQuery.get(id, function(err, row) {
+      res.render('injection/get-injection.html', {
+          title: 'Login Injection',
+          comment: row,
+          id: id,
+      });
+  });
+```
+
+. However, if for whatever reason you would need to make a dynamic query, the best thign to do is only use whitelisted values and not the user provided ones, or make sure the input is exactly what you expect it to be.
 
 For instance, we can prevent this SQL injection by converting the input to an integer.
 
