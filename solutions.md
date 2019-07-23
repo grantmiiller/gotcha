@@ -157,6 +157,8 @@ clientApp.post('/injection/login', function(req, res) {
 ### How to execute
 Append ` AND (SELECT 1 FROM users WHERE LIKE("a%25", username)%3d1)%3d1` to the end of a working url, for instance `http://localhost:4000/injection/get/2%20AND%20(SELECT%201%20FROM%20users%20WHERE%20LIKE(%22a%25%22,%20username)%3d1)%3d1`.
 
+The statement decoded is `http://localhost:4000/injection/get/2 AND (SELECT 1 FROM users WHERE LIKE("a%", username)=1)=1`
+
 This works because we are running a true statement, so the site still returns the comment. If we run a false statement, such as `http://localhost:4000/injection/get/2%20AND%201=2` the comment won't be found.
 
 ### How to Fix
