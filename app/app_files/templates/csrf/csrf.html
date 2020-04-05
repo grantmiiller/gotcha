@@ -1,0 +1,37 @@
+{{> partials/head-and-fam }}
+
+<aside class="puzzle-info">
+  <p>
+    We have a comment form where only logged in users can leave a comment. (Don't worry, you've been logged in for decades). There are no obvious ways someone can impersonate you, but maybe they can trick you into leaving a comment for them?
+  </p>
+  <p>
+    <a href="https://cheatsheetseries.owasp.org/cheatsheets/Cross-Site_Request_Forgery_Prevention_Cheat_Sheet.html">OWASP CSRF Cheatsheet</a>
+  </p>
+</aside>
+
+<!-- Content Goes Here -->
+<div class="form-container">
+  {{#error}}
+    <div class="error">
+      {{error}}
+    </div>
+  {{/error}}
+  <h2>Leave Us a Comment!</h2>
+  <form method="POST" action="" id="commentForm">
+    <textarea id="commentInput" name="comment" class="comment-input" placeholder="Your comment"></textarea>
+    <input type="hidden" name="csrfToken" id="csrfToken" value="{{{csrf}}}"/>
+    <input type="submit" value="Tell Us What You Think"/>
+  </form>
+</div>
+<div id="comments" class="comments">
+{{#comments}}
+  <div class="comment">
+    <h3>{{{name}}}</h3>
+    <p>{{{comment}}}</p>
+  </div>
+{{/comments}}
+</div>
+
+{{> partials/footer }}
+
+{{> partials/closing-html }}

@@ -142,3 +142,9 @@ textarea {
   border-bottom: 1px solid #2f2f2f;
   padding-top: 24px;
 }
+
+.error {
+  border: 1px solid #f00;
+  color: #f00;
+  padding: 12px;
+}
